@@ -7,7 +7,7 @@
   <title>2099 Industries — Laying the groundwork for what comes next</title>
   <meta name="description" content="2099 Industries develops and operates businesses, services and digital ventures for the modern marketplace. Our website is currently under development.">
   <link rel="canonical" href="https://2099ind.com/">
-  <meta name="theme-color" content="#131416">
+  <meta name="theme-color" content="#080b16">
   <meta name="color-scheme" content="dark">
 
   <!-- Open Graph -->
@@ -71,6 +71,20 @@
 
     <!-- ============ Hero ============ -->
     <section class="hero" id="top" aria-labelledby="hero-title">
+      <!-- Decorative geometry: two concentric hexagons with vertex nodes. Hidden from assistive tech. -->
+      <svg class="hero__geometry" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+        <polygon class="geo-line" points="300,30 533.8,165 533.8,435 300,570 66.2,435 66.2,165"/>
+        <polygon class="geo-line geo-line--inner" points="300,130 447.2,215 447.2,385 300,470 152.8,385 152.8,215"/>
+        <g class="geo-nodes">
+          <circle cx="300" cy="30" r="3"/>
+          <circle cx="533.8" cy="165" r="3"/>
+          <circle cx="533.8" cy="435" r="3"/>
+          <circle cx="300" cy="570" r="3"/>
+          <circle cx="66.2" cy="165" r="3"/>
+          <circle class="geo-node--lit" cx="66.2" cy="435" r="3.5"/>
+        </g>
+      </svg>
+
       <div class="container hero__inner">
 
         <h1 class="hero__title" id="hero-title">
@@ -129,18 +143,22 @@
           <!-- To add an area: copy one <li> block. Adjust the column count in styles.css (§7) if needed. -->
           <ul class="areas" role="list">
             <li class="area">
+              <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="2" r="2"/></svg>
               <h3 class="area__title">Services</h3>
               <p class="area__text">Professional services shaped around clear standards and long-term relationships.</p>
             </li>
             <li class="area">
+              <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="20.66" cy="7" r="2"/></svg>
               <h3 class="area__title">Commerce</h3>
               <p class="area__text">E-commerce operations, including the management of stores and marketplaces.</p>
             </li>
             <li class="area">
+              <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="20.66" cy="17" r="2"/></svg>
               <h3 class="area__title">Digital Operations</h3>
               <p class="area__text">The systems and processes that keep modern businesses running.</p>
             </li>
             <li class="area">
+              <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="22" r="2"/></svg>
               <h3 class="area__title">Business</h3>
               <p class="area__text">Commercial partnerships, B2B relationships and new business units.</p>
             </li>
