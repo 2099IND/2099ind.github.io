@@ -94,4 +94,182 @@
               </div>
             </li>
             <li>
-              <a class="index-item"
+              <a class="index-item" href="#company">
+                <span class="index-item__num" aria-hidden="true">04</span>
+                <span class="index-item__name">Company</span>
+              </a>
+            </li>
+            <li>
+              <a class="index-item" href="#contact">
+                <span class="index-item__num" aria-hidden="true">05</span>
+                <span class="index-item__name">Contact</span>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ============ Hero ============ -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <!-- Decorative geometry: two concentric hexagons with vertex nodes. Hidden from assistive tech. -->
+      <svg class="hero__geometry" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+        <polygon class="geo-line" points="300,30 533.8,165 533.8,435 300,570 66.2,435 66.2,165"/>
+        <polygon class="geo-line geo-line--inner" points="300,130 447.2,215 447.2,385 300,470 152.8,385 152.8,215"/>
+        <g class="geo-nodes">
+          <circle cx="300" cy="30" r="3"/>
+          <circle cx="533.8" cy="165" r="3"/>
+          <circle cx="533.8" cy="435" r="3"/>
+          <circle cx="300" cy="570" r="3"/>
+          <circle cx="66.2" cy="165" r="3"/>
+          <circle class="geo-node--lit" cx="66.2" cy="435" r="3.5"/>
+        </g>
+      </svg>
+
+      <div class="container hero__inner">
+
+        <h1 class="hero__title" id="hero-title">
+          <span class="hero__year intro" style="--delay: 0ms">2099</span>
+          <span class="hero__name intro" style="--delay: 120ms">Industries</span>
+        </h1>
+
+        <!-- Signature element: a ruler from today to the year in the name. Decorative. -->
+        <div class="horizon intro" style="--delay: 320ms" aria-hidden="true">
+          <span class="horizon__label horizon__label--start">2026</span>
+          <span class="horizon__track">
+            <span class="horizon__rule"></span>
+            <span class="horizon__marker"></span>
+          </span>
+          <span class="horizon__label horizon__label--end">2099</span>
+        </div>
+
+        <div class="hero__footer">
+          <p class="hero__lead intro" style="--delay: 480ms">Laying the groundwork for what comes next.</p>
+
+          <p class="status intro" style="--delay: 620ms">
+            <span class="status__dot" aria-hidden="true"></span>
+            Website currently under development.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ Company ============ -->
+    <section class="section" id="company" aria-labelledby="company-title">
+      <div class="container section__grid" data-reveal>
+        <h2 class="section__title" id="company-title">Company</h2>
+
+        <div class="section__body">
+          <p class="statement">
+            2099 Industries develops and operates businesses, services and digital ventures built for the modern marketplace.
+          </p>
+          <p class="prose">
+            The company is organized around distinct areas of activity, structured to grow, adapt and take on new lines of business over time. This website is the start of our public presence, and it will expand as the company does.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Direction / areas of focus ============ -->
+    <section class="section" id="direction" aria-labelledby="direction-title">
+      <div class="container section__grid" data-reveal>
+        <h2 class="section__title" id="direction-title">Direction</h2>
+
+        <div class="section__body">
+          <p class="prose">
+            The areas that shape where 2099 Industries is heading. They describe our direction, not a list of current offerings, and each may develop into its own line of business.
+          </p>
+
+          <!-- To add an area: copy one <li> block. Adjust the column count in styles.css (§7) if needed. -->
+          <ul class="areas" role="list">
+            <li class="area">
+              <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="2" r="2"/></svg>
+              <h3 class="area__title">Capabilities</h3>
+              <p class="area__text">Services and expertise shaped around clear standards and long-term relationships.</p>
+            </li>
+            <li class="area">
+              <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="20.66" cy="7" r="2"/></svg>
+              <h3 class="area__title">Goods</h3>
+              <p class="area__text">Physical and digital goods, and the channels that bring them to market.</p>
+            </li>
+            <li class="area">
+              <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="20.66" cy="17" r="2"/></svg>
+              <h3 class="area__title">Systems</h3>
+              <p class="area__text">The digital infrastructure and processes that keep operations precise and ready to scale.</p>
+            </li>
+            <li class="area">
+              <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="22" r="2"/></svg>
+              <h3 class="area__title">Ventures</h3>
+              <p class="area__text">Commercial partnerships, B2B relationships and new units of business.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Contact ============ -->
+    <section class="section section--contact" id="contact" aria-labelledby="contact-title">
+      <div class="container section__grid" data-reveal>
+        <h2 class="section__title" id="contact-title">Contact</h2>
+
+        <div class="section__body">
+          <p class="statement">Reach us directly by email.</p>
+
+          <!--
+            To add an address (e.g. support@ or orders@), copy one <li> block
+            and update the label, description, href, link text, data-copy and aria-label.
+          -->
+          <ul class="contacts" role="list">
+            <li class="contact">
+              <div class="contact__meta">
+                <h3 class="contact__label">Sales</h3>
+                <p class="contact__text">Commercial inquiries</p>
+              </div>
+              <div class="contact__actions">
+                <a class="contact__email" href="mailto:sales@2099ind.com">sales@2099ind.com</a>
+                <button class="copy-btn" type="button" data-copy="sales@2099ind.com" aria-label="Copy sales email address" hidden>Copy</button>
+              </div>
+            </li>
+            <li class="contact">
+              <div class="contact__meta">
+                <h3 class="contact__label">Business</h3>
+                <p class="contact__text">Partnerships and corporate communications</p>
+              </div>
+              <div class="contact__actions">
+                <a class="contact__email" href="mailto:business@2099ind.com">business@2099ind.com</a>
+                <button class="copy-btn" type="button" data-copy="business@2099ind.com" aria-label="Copy business email address" hidden>Copy</button>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Screen-reader announcement for copy actions -->
+          <p class="visually-hidden" role="status" aria-live="polite" data-copy-status></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to top: shown by script.js only after the hero has left the screen.
+         Sticky inside <main>, so it never overlaps the footer. -->
+    <div class="to-top-rail">
+      <a class="to-top" href="#top" aria-label="Back to top" data-to-top hidden><span aria-hidden="true">↑</span> Top</a>
+    </div>
+
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="wordmark wordmark--footer">
+        <span class="wordmark__year">2099</span>
+        <span class="wordmark__name">Industries</span>
+      </p>
+      <p class="site-footer__legal">© 2026 2099 Industries. All rights reserved.</p>
+      <p class="site-footer__domain">2099ind.com</p>
+    </div>
+  </footer>
+</body>
+</html>
