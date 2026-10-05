@@ -1,7 +1,7 @@
 /* ==========================================================================
    2099 Industries — styles.css
    1. Tokens   2. Base   3. Layout   4. Header   5. Hero
-   6. Sections 7. Areas  8. Contact  9. Footer   10. Motion
+   6. Sections 7. Areas  7b. Explorations  8. Contact  9. Footer   10. Motion
    ========================================================================== */
 
 /* 1. Tokens ---------------------------------------------------------------
@@ -730,6 +730,93 @@ a.index-item[aria-current]::after {
   .area__title { margin-top: var(--space-3); }
 }
 
+/* 7b. Explorations -------------------------------------------------------
+   Concept visuals in the same frame as the area cards. The photos keep their
+   own dark backgrounds; a soft fade at the foot of each image merges it into
+   the caption, so they read as part of the page rather than pasted rectangles. */
+.explorations {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+@media (min-width: 64rem) {
+  .explorations { grid-template-columns: repeat(3, 1fr); }
+}
+
+.exploration {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  transition: border-color 500ms var(--ease), transform 500ms var(--ease);
+}
+
+.exploration figure {
+  position: relative;
+  margin: 0;
+}
+
+/* Fade from the photo into the caption strip */
+.exploration figure::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  background: linear-gradient(to bottom, transparent, var(--color-bg) 92%);
+  pointer-events: none;
+}
+
+.exploration img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 500ms var(--ease);
+}
+
+.exploration figcaption {
+  position: absolute;
+  left: var(--space-3);
+  right: var(--space-3);
+  bottom: var(--space-2);
+  z-index: 1;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+@media (hover: hover) {
+  .exploration:hover {
+    border-color: var(--color-line-strong);
+    transform: translateY(-2px);
+  }
+  .exploration:hover img { transform: scale(1.03); }
+}
+
+/* Phones: a horizontal strip that swipes, instead of a long column of images */
+@media (max-width: 39.99rem) {
+  ul.explorations { /* ul. beats the ul[role="list"] reset's margin/padding */
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    /* Strip runs to the screen edges; the first image still aligns with the text */
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+    padding-bottom: var(--space-2);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+  .exploration { scroll-snap-align: start; }
+}
+
 /* 8. Contact ------------------------------------------------------------- */
 .contacts {
   display: grid;
@@ -987,17 +1074,19 @@ a.index-item[aria-current]::after {
    hover transitions never inherit the stagger delays. Content is hidden only while
    JS is running and the section has not been reached yet. */
 .js [data-reveal]:not(.is-visible) > *,
-.js [data-reveal]:not(.is-visible) .area { opacity: 0; }
+.js [data-reveal]:not(.is-visible) :is(.area, .exploration) { opacity: 0; }
 
 .js [data-reveal].is-visible > *,
-.js [data-reveal].is-visible .area {
+.js [data-reveal].is-visible :is(.area, .exploration) {
   animation: rise var(--dur) var(--ease) backwards;
 }
 .js [data-reveal].is-visible > :nth-child(2) { animation-delay: 120ms; }
-.js [data-reveal].is-visible .area:nth-child(1) { animation-delay: 240ms; }
-.js [data-reveal].is-visible .area:nth-child(2) { animation-delay: 320ms; }
-.js [data-reveal].is-visible .area:nth-child(3) { animation-delay: 400ms; }
-.js [data-reveal].is-visible .area:nth-child(4) { animation-delay: 480ms; }
+.js [data-reveal].is-visible :is(.area, .exploration):nth-child(1) { animation-delay: 240ms; }
+.js [data-reveal].is-visible :is(.area, .exploration):nth-child(2) { animation-delay: 320ms; }
+.js [data-reveal].is-visible :is(.area, .exploration):nth-child(3) { animation-delay: 400ms; }
+.js [data-reveal].is-visible :is(.area, .exploration):nth-child(4) { animation-delay: 480ms; }
+.js [data-reveal].is-visible .exploration:nth-child(5) { animation-delay: 560ms; }
+.js [data-reveal].is-visible .exploration:nth-child(6) { animation-delay: 640ms; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1011,7 +1100,7 @@ a.index-item[aria-current]::after {
   }
 
   .js [data-reveal]:not(.is-visible) > *,
-  .js [data-reveal]:not(.is-visible) .area { opacity: 1; }
+  .js [data-reveal]:not(.is-visible) :is(.area, .exploration) { opacity: 1; }
   .hero__title { transform: none; }
   .geo-line { stroke-dashoffset: 0; }
   .horizon__track::after { display: none; }
