@@ -280,6 +280,12 @@ a.wordmark:hover .wordmark__name { color: var(--color-text); }
 .geo-nodes circle { fill: var(--color-line-strong); }
 .geo-nodes .geo-node--lit { fill: var(--color-accent); }
 
+/* Narrow phones: the lit node falls behind the numerals, so it reverts to a
+   neutral node rather than moving the geometry. The 2099 takes priority. */
+@media (max-width: 24rem) {
+  .geo-nodes .geo-node--lit { fill: var(--color-line-strong); }
+}
+
 @media (max-width: 48rem) {
   .hero__geometry {
     top: 4.5rem;
