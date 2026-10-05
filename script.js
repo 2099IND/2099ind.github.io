@@ -1,7 +1,7 @@
 /* ==========================================================================
    2099 Industries — script.js
    Progressive enhancement only: the page is complete without JavaScript.
-   1. Section reveal   2. Hero drift   3. Copy email
+   1. Section reveal   2. Hero drift   3. Index panel   4. Back to top   5. Copy email
    ========================================================================== */
 
 (() => {
@@ -46,7 +46,70 @@
     }, { passive: true });
   }
 
-  /* 3. Copy email -------------------------------------------------------- */
+  /* 3. Index panel ------------------------------------------------------- */
+  // Open, close, Esc and outside clicks are native (Popover API).
+  // This closes the panel after jumping to a section and moves focus there,
+  // since hidePopover() would otherwise return focus to the toggle.
+  const indexPanel = document.getElementById('index-panel');
+  const indexToggle = document.querySelector('.index-toggle');
+
+  if (indexPanel && typeof indexPanel.hidePopover === 'function') {
+    indexPanel.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      indexPanel.hidePopover();
+
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true }); // the link's own navigation does the scrolling
+      }
+    });
+  }
+
+  // Mark the section currently crossing the middle of the screen.
+  const indexLinks = indexPanel ? indexPanel.querySelectorAll('a[href^="#"]') : [];
+
+  if (indexLinks.length && 'IntersectionObserver' in window) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const link = indexPanel.querySelector(`a[href="#${entry.target.id}"]`);
+        if (!link) return;
+        if (entry.isIntersecting) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-45% 0px -55% 0px' });
+
+    indexLinks.forEach((link) => {
+      const section = document.querySelector(link.getAttribute('href'));
+      if (section) sectionObserver.observe(section);
+    });
+  }
+
+  /* 4. Back to top ------------------------------------------------------- */
+  // Shown once the hero has fully left the screen. Activating it scrolls to the
+  // top and puts focus on INDEX, the next likely action.
+  const toTop = document.querySelector('[data-to-top]');
+  const hero = document.querySelector('.hero');
+
+  if (toTop && hero && 'IntersectionObserver' in window) {
+    toTop.hidden = false;
+
+    new IntersectionObserver(([entry]) => {
+      toTop.classList.toggle('is-shown', !entry.isIntersecting);
+    }).observe(hero);
+
+    toTop.addEventListener('click', (event) => {
+      // Scroll here instead of following #top: the hero is not focusable, so the
+      // native jump would drop focus to <body>. CSS scroll-behavior still applies.
+      event.preventDefault();
+      window.scrollTo({ top: 0 });
+      const destination = indexToggle && indexToggle.offsetParent ? indexToggle : document.querySelector('.wordmark');
+      if (destination) destination.focus({ preventScroll: true });
+    });
+  }
+
+  /* 5. Copy email -------------------------------------------------------- */
   // Buttons ship hidden and are only shown where the Clipboard API exists.
   const copyButtons = document.querySelectorAll('[data-copy]');
   const status = document.querySelector('[data-copy-status]');
