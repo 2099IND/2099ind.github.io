@@ -58,11 +58,55 @@
       </a>
 
       <nav class="site-nav" aria-label="Primary">
-        <ul class="site-nav__list">
-          <li class="site-nav__item site-nav__item--secondary"><a href="#company">Company</a></li>
-          <li class="site-nav__item site-nav__item--secondary"><a href="#direction">Direction</a></li>
-          <li class="site-nav__item"><a href="#contact">Contact</a></li>
-        </ul>
+        <!-- INDEX uses the native Popover API: Enter/Space opens, Esc or an outside click closes,
+             and focus returns to this button. No JavaScript is needed for open/close. -->
+        <button class="index-toggle" type="button" popovertarget="index-panel">
+          <svg class="index-toggle__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="12" r="2.5"/></svg>
+          <span class="index-toggle__label">Index</span>
+        </button>
+
+        <div class="index-panel" id="index-panel" popover>
+          <!--
+            Store, Catalog and Offers are reserved entries: plain text, not links, until their pages exist.
+            To activate one, replace its <div class="index-item index-item--reserved"> with
+            <a class="index-item" href="store/"> and remove the status span.
+          -->
+          <ol class="index-list" role="list">
+            <li>
+              <div class="index-item index-item--reserved">
+                <span class="index-item__num" aria-hidden="true">01</span>
+                <span class="index-item__name">Store</span>
+                <span class="index-item__status">In development</span>
+              </div>
+            </li>
+            <li>
+              <div class="index-item index-item--reserved">
+                <span class="index-item__num" aria-hidden="true">02</span>
+                <span class="index-item__name">Catalog</span>
+                <span class="index-item__status">In development</span>
+              </div>
+            </li>
+            <li>
+              <div class="index-item index-item--reserved">
+                <span class="index-item__num" aria-hidden="true">03</span>
+                <span class="index-item__name">Offers</span>
+                <span class="index-item__status">In development</span>
+              </div>
+            </li>
+            <li>
+              <a class="index-item" href="#company">
+                <span class="index-item__num" aria-hidden="true">04</span>
+                <span class="index-item__name">Company</span>
+              </a>
+            </li>
+            <li>
+              <a class="index-item" href="#contact">
+                <span class="index-item__num" aria-hidden="true">05</span>
+                <span class="index-item__name">Contact</span>
+              </a>
+            </li>
+          </ol>
+        </div>
       </nav>
     </div>
   </header>
@@ -144,23 +188,23 @@
           <ul class="areas" role="list">
             <li class="area">
               <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="2" r="2"/></svg>
-              <h3 class="area__title">Services</h3>
-              <p class="area__text">Professional services shaped around clear standards and long-term relationships.</p>
+              <h3 class="area__title">Capabilities</h3>
+              <p class="area__text">Services and expertise shaped around clear standards and long-term relationships.</p>
             </li>
             <li class="area">
               <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="20.66" cy="7" r="2"/></svg>
-              <h3 class="area__title">Commerce</h3>
-              <p class="area__text">E-commerce operations, including the management of stores and marketplaces.</p>
+              <h3 class="area__title">Goods</h3>
+              <p class="area__text">Physical and digital goods, and the channels that bring them to market.</p>
             </li>
             <li class="area">
               <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="20.66" cy="17" r="2"/></svg>
-              <h3 class="area__title">Digital Operations</h3>
-              <p class="area__text">The systems and processes that keep modern businesses running.</p>
+              <h3 class="area__title">Systems</h3>
+              <p class="area__text">The digital infrastructure and processes that keep operations precise and ready to scale.</p>
             </li>
             <li class="area">
               <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="22" r="2"/></svg>
-              <h3 class="area__title">Business</h3>
-              <p class="area__text">Commercial partnerships, B2B relationships and new business units.</p>
+              <h3 class="area__title">Ventures</h3>
+              <p class="area__text">Commercial partnerships, B2B relationships and new units of business.</p>
             </li>
           </ul>
         </div>
