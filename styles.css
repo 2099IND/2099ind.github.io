@@ -35,7 +35,7 @@
   --text-base: 1.0625rem;
   --text-lg: clamp(1.25rem, 1.05rem + 0.9vw, 1.625rem);
   --text-xl: clamp(1.5rem, 1.1rem + 1.8vw, 2.5rem);
-  --text-display: clamp(5.5rem, 3rem + 20vw, 23rem);
+  --text-display: clamp(5.5rem, 3rem + 20vw, 20.5rem); /* Cap reached at approximately 1400px. */
 
   /* Space (8px rhythm) */
   --space-1: 0.5rem;
@@ -92,7 +92,7 @@ body {
 
 h1, h2, h3, p, ul { margin: 0; }
 ul[role="list"],
-.site-nav__list { list-style: none; padding: 0; }
+ol[role="list"] { list-style: none; padding: 0; margin: 0; }
 
 a { color: inherit; text-decoration: none; }
 
@@ -178,34 +178,136 @@ main:focus { outline: none; }
 a.wordmark { padding-block: calc((var(--tap) - 1em) / 2); } /* exactly 44px tap height */
 a.wordmark:hover .wordmark__name { color: var(--color-text); }
 
-.site-nav__list { display: flex; gap: var(--space-4); }
-.site-nav a {
+/* INDEX toggle: the single visible navigation control */
+.index-toggle {
   position: relative;
   display: inline-flex;
   align-items: center;
+  gap: 0.7em;
   min-height: var(--tap);
-  font-size: var(--text-sm);
+  margin-right: -0.25rem;          /* optical: aligns the label with the container edge */
+  padding: 0 0.25rem;
+  border: 0;
+  background: none;
   color: var(--color-muted);
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.32em;          /* same tracking as the wordmark name */
+  text-transform: uppercase;
+  cursor: pointer;
   transition: color 300ms ease;
 }
-/* Hairline that draws in under the link */
-.site-nav a::after {
+.index-toggle__label { margin-right: -0.32em; } /* cancels trailing tracking */
+
+/* Hairline under the label, same language as the email links */
+.index-toggle::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.65rem;
+  left: calc(1rem + 0.7em + 0.25rem);
+  right: 0.25rem;
+  bottom: 0.7rem;
   height: 1px;
   background: var(--color-text);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 500ms var(--ease);
 }
-.site-nav a:hover { color: var(--color-text); }
-.site-nav a:hover::after { transform: scaleX(1); }
 
-@media (max-width: 34rem) {
-  .site-nav__item--secondary { display: none; }
+.index-toggle__mark {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+  overflow: visible;
+}
+.index-toggle__mark polygon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+.index-toggle__mark circle {
+  fill: var(--color-line-strong);
+  transition: fill 300ms ease;
+}
+
+@media (hover: hover) {
+  .index-toggle:hover { color: var(--color-text); }
+  .index-toggle:hover::after { transform: scaleX(1); }
+}
+.index-toggle:focus-visible::after { transform: scaleX(1); }
+
+/* Open state: label brightens, the node inside the hexagon lights up */
+.site-nav:has(.index-panel:popover-open) .index-toggle { color: var(--color-text); }
+.site-nav:has(.index-panel:popover-open) .index-toggle__mark circle { fill: var(--color-accent); }
+
+/* INDEX panel: a quiet sheet aligned under the toggle. Hidden by default; only
+   browsers with the Popover API can open it (see fallback below). */
+.index-panel {
+  display: none;
+  position: fixed;
+  inset: auto;
+  top: calc(env(safe-area-inset-top, 0px) + var(--header-h));
+  right: calc(max(0px, (100% - var(--container)) / 2) + var(--gutter));
+  width: min(23rem, calc(100% - 2 * var(--gutter)));
+  max-height: calc(100% - var(--header-h) - env(safe-area-inset-top, 0px) - var(--space-3));
+  margin: 0;
+  padding: var(--space-1) var(--space-3);
+  overflow: auto;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-card);
+}
+.index-panel:popover-open { display: block; }
+.index-panel::backdrop { background: transparent; }
+
+.index-list > li + li { border-top: 1px solid var(--color-line); }
+
+.index-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.25rem 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 3.25rem;
+  font-size: var(--text-sm);
+}
+
+.index-item__num {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+.index-item__name {
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.index-item__status {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+/* Reserved entries (not yet live): present, but clearly inactive */
+.index-item--reserved .index-item__name { color: var(--color-muted); }
+
+/* Live entries: a hairline draws under the name on hover/focus */
+a.index-item .index-item__name {
+  justify-self: start;
+  background: linear-gradient(var(--color-text), var(--color-text)) left 100% / 0% 1px no-repeat;
+  transition: background-size 500ms var(--ease);
+}
+a.index-item:focus-visible .index-item__name { background-size: 100% 1px; }
+@media (hover: hover) {
+  a.index-item:hover .index-item__name { background-size: 100% 1px; }
+}
+a.index-item:focus-visible { outline-offset: 2px; }
+
+/* Without the Popover API the toggle would do nothing, so it is not shown.
+   Every section stays reachable by scrolling. */
+@supports not selector(:popover-open) {
+  .index-toggle { display: none; }
 }
 
 /* 5. Hero ---------------------------------------------------------------- */
@@ -215,7 +317,7 @@ a.wordmark:hover .wordmark__name { color: var(--color-text); }
   min-height: 100vh;
   min-height: 100svh;
   padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
-  padding-bottom: var(--space-5);
+  padding-bottom: clamp(3rem, 6vw - 3rem, 4.5rem);
   overflow: hidden;
   isolation: isolate;
 }
@@ -261,6 +363,13 @@ a.wordmark:hover .wordmark__name { color: var(--color-text); }
   overflow: visible;
   opacity: 0.8;
   pointer-events: none;
+}
+
+/* Large desktop: reduce geometry to match the capped numerals. */
+@media (min-width: 100rem) {
+  .hero__geometry {
+    width: 43rem;
+  }
 }
 
 /* Trace uses each hexagon's real perimeter (6 × radius in viewBox units),
@@ -733,6 +842,10 @@ a.wordmark:hover .wordmark__name { color: var(--color-text); }
   from { box-shadow: 0 0 0 4px var(--color-bg), 0 0 26px 8px var(--color-accent-soft); }
   to   { box-shadow: 0 0 0 4px var(--color-bg), 0 0 14px 2px var(--color-accent-soft); }
 }
+@keyframes index-in {
+  from { opacity: 0; transform: translateY(-0.375rem); }
+  to   { opacity: 1; transform: none; }
+}
 @keyframes breathe {
   0%, 100% { opacity: 1; }
   50%      { opacity: 0.5; }
@@ -770,6 +883,11 @@ a.wordmark:hover .wordmark__name { color: var(--color-text); }
   animation:
     appear 800ms ease 1500ms both,
     settle 2200ms ease 1500ms both;
+}
+
+/* INDEX opens with a short, quiet settle; closing is instant */
+.index-panel:popover-open {
+  animation: index-in 450ms var(--ease) both;
 }
 
 /* The only continuous motion: a slow, gentle breath on the status dot */
