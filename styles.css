@@ -743,13 +743,37 @@ a.index-item[aria-current]::after {
   .explorations { grid-template-columns: repeat(3, 1fr); }
 }
 
+/* The caption fade colour is a registered property so it can animate,
+   matching the surface change of the area cards on hover. */
+@property --fade {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #080b16;
+}
+
 .exploration {
+  --fade: var(--color-bg);
   position: relative;
   overflow: hidden;
-  background: var(--color-bg);
+  background: var(--fade);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-card);
-  transition: border-color 500ms var(--ease), transform 500ms var(--ease);
+  transition: border-color 500ms var(--ease), transform 500ms var(--ease), --fade 500ms var(--ease);
+}
+
+/* Same accent line as the area cards, drawn above the photo */
+.exploration::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--radius-card);
+  right: var(--radius-card);
+  z-index: 2;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-accent), var(--color-violet) 60%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms var(--ease);
 }
 
 .exploration figure {
@@ -765,7 +789,7 @@ a.index-item[aria-current]::after {
   right: 0;
   bottom: 0;
   height: 45%;
-  background: linear-gradient(to bottom, transparent, var(--color-bg) 92%);
+  background: linear-gradient(to bottom, transparent, var(--fade) 92%);
   pointer-events: none;
 }
 
@@ -791,9 +815,11 @@ a.index-item[aria-current]::after {
 
 @media (hover: hover) {
   .exploration:hover {
+    --fade: var(--color-surface-2);
     border-color: var(--color-line-strong);
     transform: translateY(-2px);
   }
+  .exploration:hover::before { transform: scaleX(1); }
   .exploration:hover img { transform: scale(1.03); }
 }
 
