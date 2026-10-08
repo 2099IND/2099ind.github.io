@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Accessibility — 2099 Industries</title>
+  <meta name="description" content="The accessibility commitment of the 2099 Industries website.">
+  <link rel="canonical" href="https://2099ind.com/accessibility.html">
+  <meta name="theme-color" content="#080b16">
+  <meta name="color-scheme" content="dark">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- DRAFT: review by a Puerto Rico attorney before the store launches. -->
+
+  <!-- ============ Header ============ -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="wordmark" href="index.html" aria-label="2099 Industries, home">
+        <span class="wordmark__year">2099</span>
+        <span class="wordmark__name">Industries</span>
+      </a>
+      <a class="page-back" href="index.html"><span aria-hidden="true">←</span> Home</a>
+    </div>
+  </header>
+
+  <main id="main" class="page" tabindex="-1">
+    <section class="section" aria-labelledby="page-title">
+      <div class="container section__grid">
+        <p class="section__title">Legal</p>
+
+        <div class="section__body">
+          <h1 class="page__title" id="page-title">Accessibility</h1>
+          <p class="page__meta">Last updated: October 7, 2026</p>
+          <p class="prose">2099 Industries wants this website to be usable by everyone. We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA.</p>
+
+          <div class="faq">
+            <details class="faq__item" open>
+              <summary><svg class="faq__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="12" r="2.5"/></svg>What we have done</summary>
+              <div class="faq__answer">
+                <ul>
+                  <li>Full keyboard navigation, with a visible focus indicator and a “Skip to content” link.</li>
+                  <li>Text and interface contrast that meets WCAG AA.</li>
+                  <li>Descriptive text alternatives for images; decorative graphics are hidden from screen readers.</li>
+                  <li>Respect for the “reduce motion” setting: animations are switched off when it is enabled.</li>
+                  <li>Content that remains available without JavaScript and when zoomed up to 400%.</li>
+                  <li>Touch targets of at least 44 × 44 pixels.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="faq__item">
+              <summary><svg class="faq__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="12" r="2.5"/></svg>Known limitations</summary>
+              <div class="faq__answer">
+                <p>The INDEX navigation menu requires a recent browser. In older browsers it is hidden, and every section remains reachable by scrolling.</p>
+              </div>
+            </details>
+            <details class="faq__item">
+              <summary><svg class="faq__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="12" r="2.5"/></svg>Feedback</summary>
+              <div class="faq__answer">
+                <p>If you find a barrier on this website, please tell us at <a href="mailto:business@2099ind.com">business@2099ind.com</a> and include the page and a short description. We will do our best to respond and fix it.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ Footer ============ -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="wordmark wordmark--footer">
+        <span class="wordmark__year">2099</span>
+        <span class="wordmark__name">Industries</span>
+      </p>
+      <nav aria-label="Information">
+        <ul class="site-footer__links" role="list">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="accessibility.html" aria-current="page">Accessibility</a></li>
+        </ul>
+      </nav>
+      <p class="site-footer__legal">© 2026 2099 Industries. All rights reserved.</p>
+      <p class="site-footer__domain">2099ind.com</p>
+    </div>
+  </footer>
+</body>
+</html>
