@@ -875,6 +875,9 @@ a.index-item[aria-current]::after {
   color: var(--color-muted);
 }
 
+/* The description wraps inside its column before the email drops to a new line */
+.contact__meta { flex: 1 1 14rem; min-width: 0; }
+
 .contact__actions {
   display: flex;
   align-items: center;
