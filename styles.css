@@ -300,11 +300,16 @@ a.wordmark:hover .wordmark__name { color: var(--color-text); }
 a.index-item .index-item__name {
   justify-self: start;
   background: linear-gradient(var(--color-text), var(--color-text)) left 100% / 0% 1px no-repeat;
-  transition: background-size 500ms var(--ease);
+  transition: background-size 200ms var(--ease);
 }
-a.index-item:focus-visible .index-item__name { background-size: 100% 1px; }
+a.index-item .index-item__num { transition: color 200ms ease; }
+a.index-item:focus-visible .index-item__name,
+a.index-item:active .index-item__name { background-size: 100% 1px; }   /* :active = touch feedback */
+a.index-item:focus-visible .index-item__num,
+a.index-item:active .index-item__num { color: var(--color-text); }
 @media (hover: hover) {
   a.index-item:hover .index-item__name { background-size: 100% 1px; }
+  a.index-item:hover .index-item__num { color: var(--color-text); }
 }
 a.index-item:focus-visible { outline-offset: 2px; }
 
@@ -365,7 +370,7 @@ a.index-item[aria-current]::after {
   mask-image: radial-gradient(ellipse 75% 65% at 25% 30%, #000 0%, transparent 78%);
 }
 
-/* Concentric hexagons: draw in once, then stay still. */
+/* Concentric hexagons: draw in once, then rest. They answer the pointer (§10). */
 .hero__geometry {
   position: absolute;
   z-index: -1;
@@ -518,7 +523,7 @@ a.index-item[aria-current]::after {
   transform-origin: left center;
 }
 
-/* Light sweep along the ruler (violet → blue), repeated every 15 seconds. */
+/* Light sweep along the ruler (violet → blue): a 900ms pass, repeated every 15s by script.js. */
 .horizon__track::after {
   content: "";
   position: absolute;
@@ -1032,13 +1037,18 @@ a.index-item[aria-current]::after {
   from { stroke-dashoffset: var(--len); }
   to   { stroke-dashoffset: 0; }
 }
-/* One 1.6s pass, then rest: the cycle repeats every 15s (pass ≈ 10.7% of it) */
+/* One pass along the ruler: the 22%-wide light travels to the end of the track
+   (78% of the track = 354.55% of its own width). Transform only, no layout. */
 @keyframes sweep {
-  0%     { left: 0;   opacity: 0; animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1); }
-  1.6%   { opacity: 1; }
-  9%     { opacity: 1; }
-  10.7%  { left: 78%; opacity: 0; }
-  100%   { left: 78%; opacity: 0; }
+  0%   { transform: translateX(0);       opacity: 0; }
+  18%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateX(354.55%); opacity: 0; }
+}
+@keyframes geo-ripple {
+  0%   { transform: scale(1);    opacity: 0; }
+  12%  { opacity: 0.55; }
+  100% { transform: scale(1.06); opacity: 0; }
 }
 @keyframes settle {
   from { box-shadow: 0 0 0 4px var(--color-bg), 0 0 26px 8px var(--color-accent-soft); }
@@ -1073,7 +1083,9 @@ a.index-item[aria-current]::after {
   animation-delay: 1800ms;
 }
 
-/* Ruler: baseline draws, decade ticks follow, one sweep, marker settles */
+/* Ruler: baseline draws, decade ticks follow, one sweep, marker settles.
+   The first sweep is CSS (runs even without JS). script.js replays it every 15s
+   by setting --sweep-delay to 0 and restarting it through .is-resetting. */
 .horizon__rule {
   animation: draw 1600ms var(--ease) both;
   animation-delay: 450ms;
@@ -1083,12 +1095,38 @@ a.index-item[aria-current]::after {
   animation-delay: 650ms;
 }
 .horizon__track::after {
-  animation: sweep 15s linear 1700ms infinite both;
+  animation: sweep 900ms cubic-bezier(0.45, 0, 0.25, 1) var(--sweep-delay, 1700ms) both;
 }
+.horizon__track.is-resetting::after { animation: none; }
 .horizon__marker {
   animation:
     appear 800ms ease 1500ms both,
     settle 2200ms ease 1500ms both;
+}
+
+/* Hexagon pointer response (classes set by script.js after the opening trace).
+   Mouse/pen over the hexagons: lines take a blue tint and grow 1.5% around their
+   own centre (the SVG itself never moves). Entry or tap: one outline ripple. */
+.geo-line,
+.geo-nodes {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: stroke 400ms ease, scale 400ms var(--ease);
+}
+.hero__geometry.is-engaged :is(.geo-line, .geo-nodes) { scale: 1.015; }
+.hero__geometry.is-engaged .geo-line { stroke: #34519c; }
+.hero__geometry.is-engaged .geo-line--inner { stroke: #253c72; }
+
+.geo-ripple {
+  fill: none;
+  stroke: var(--color-blue);
+  stroke-width: 1;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.hero__geometry.is-rippling .geo-ripple {
+  animation: geo-ripple 1100ms cubic-bezier(0.2, 0.6, 0.2, 1) both;
 }
 
 /* INDEX opens with a short, quiet settle; closing is instant */
@@ -1135,7 +1173,8 @@ a.index-item[aria-current]::after {
   .js [data-reveal]:not(.is-visible) :is(.area, .exploration) { opacity: 1; }
   .hero__title { transform: none; }
   .geo-line { stroke-dashoffset: 0; }
-  .horizon__track::after { display: none; }
+  .horizon__track::after,
+  .geo-ripple { display: none; }
 }
 
 /* 11. Footer links + secondary pages --------------------------------------

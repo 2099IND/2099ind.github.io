@@ -27,7 +27,13 @@
   <link rel="stylesheet" href="styles.css">
 
   <!-- Flags JS as available before first paint, so reveal styles never flash. -->
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    document.documentElement.classList.add('js');
+    // Fail-safe: if script.js never runs, show the sections that wait for it.
+    window.addEventListener('load', () => {
+      if (!window.__revealReady) document.documentElement.classList.remove('js');
+    });
+  </script>
   <script src="i18n.js" defer></script>
   <script src="script.js" defer></script>
 
@@ -141,6 +147,8 @@
       <svg class="hero__geometry" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
         <polygon class="geo-line" points="300,30 533.8,165 533.8,435 300,570 66.2,435 66.2,165"/>
         <polygon class="geo-line geo-line--inner" points="300,130 447.2,215 447.2,385 300,470 152.8,385 152.8,215"/>
+        <!-- Outline ripple played by script.js on pointer entry or tap; invisible at rest. -->
+        <polygon class="geo-ripple" points="300,30 533.8,165 533.8,435 300,570 66.2,435 66.2,165"/>
         <g class="geo-nodes">
           <circle cx="300" cy="30" r="3"/>
           <circle cx="533.8" cy="165" r="3"/>
