@@ -4,40 +4,49 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-  <title>Terms of use — 2099 Industries</title>
-  <meta name="description" content="Terms that govern the use of the 2099 Industries website and future orders.">
+  <title data-i18n="terms.title">Terms of use — 2099 Industries</title>
+  <meta name="description" content="Terms that govern the use of the 2099 Industries website and future orders." data-i18n-attr="content:terms.desc">
   <link rel="canonical" href="https://2099ind.com/terms.html">
   <meta name="theme-color" content="#080b16">
   <meta name="color-scheme" content="dark">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
+  <script src="i18n.js" defer></script>
 </head>
 
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main" data-i18n="ui.skip">Skip to content</a>
 
   <!-- BUSINESS-POLICY DRAFT: pending review by qualified Puerto Rico counsel before launch. -->
 
   <!-- ============ Header ============ -->
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="wordmark" href="index.html" aria-label="2099 Industries, home">
+      <a class="wordmark" href="index.html" aria-label="2099 Industries, home" data-i18n-attr="aria-label:ui.wordmark-home">
         <span class="wordmark__year">2099</span>
         <span class="wordmark__name">Industries</span>
       </a>
-      <a class="page-back" href="index.html"><span aria-hidden="true">←</span> Home</a>
+      <!-- Language switch: shown by i18n.js. Without JavaScript the site stays in English. -->
+      <div class="lang-switch lang-switch--header" role="group" aria-label="Language" data-i18n-attr="aria-label:ui.language" hidden>
+          <button class="lang-switch__btn" type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="true"><span class="lang-switch__long">English</span><span class="lang-switch__short">EN</span></button>
+          <span class="lang-switch__sep" aria-hidden="true">/</span>
+          <button class="lang-switch__btn" type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="false"><span class="lang-switch__long">Español</span><span class="lang-switch__short">ES</span></button>
+      </div>
+
+      <a class="page-back" href="index.html" aria-label="Home" data-i18n-attr="aria-label:ui.home"><span aria-hidden="true">←</span> <span class="page-back__label" data-i18n="ui.home">Home</span></a>
     </div>
   </header>
 
   <main id="main" class="page" tabindex="-1">
     <section class="section" aria-labelledby="page-title">
       <div class="container section__grid">
-        <p class="section__title">Legal</p>
+        <p class="section__title" data-i18n="terms.label">Legal</p>
 
         <div class="section__body">
           <h1 class="page__title" id="page-title">Terms of use</h1>
-          <p class="page__meta">Last updated: October 7, 2026</p>
+          <p class="page__notice" data-lang-only="es" lang="es" hidden>Este documento está disponible solo en inglés. La versión en inglés es la que rige.</p>
+          <p class="page__meta" data-i18n="ui.updated">Last updated: October 8, 2026</p>
           <p class="prose">By using this website you agree to these terms. Additional terms of sale will apply to any future orders and will be published before sales begin.</p>
 
           <div class="faq">
@@ -127,7 +136,7 @@
             <details class="faq__item">
               <summary><svg class="faq__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="12" r="2.5"/></svg>Changes and contact</summary>
               <div class="faq__answer">
-                <p>We may update these terms and will revise the date shown at the top. Questions: <a href="mailto:business@2099ind.com">business@2099ind.com</a>.</p>
+                <p>We may update these terms and will revise the date shown at the top. Questions: <a href="mailto:support@2099ind.com">support@2099ind.com</a>.</p>
               </div>
             </details>
           </div>
@@ -143,15 +152,15 @@
         <span class="wordmark__year">2099</span>
         <span class="wordmark__name">Industries</span>
       </p>
-      <nav aria-label="Information">
+      <nav aria-label="Information" data-i18n-attr="aria-label:ui.footer-nav">
         <ul class="site-footer__links" role="list">
           <li><a href="faq.html">FAQ</a></li>
-          <li><a href="privacy.html">Privacy</a></li>
-          <li><a href="terms.html" aria-current="page">Terms</a></li>
-          <li><a href="accessibility.html">Accessibility</a></li>
+          <li><a href="privacy.html" data-i18n="foot.privacy">Privacy</a></li>
+          <li><a href="terms.html" aria-current="page" data-i18n="foot.terms">Terms</a></li>
+          <li><a href="accessibility.html" data-i18n="foot.access">Accessibility</a></li>
         </ul>
       </nav>
-      <p class="site-footer__legal">© 2026 2099 Industries. All rights reserved.</p>
+      <p class="site-footer__legal" data-i18n="foot.legal">© 2026 2099 Industries. All rights reserved.</p>
       <p class="site-footer__domain">2099ind.com</p>
     </div>
   </footer>
