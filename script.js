@@ -1,13 +1,17 @@
 /* ==========================================================================
    2099 Industries — script.js
    Progressive enhancement only: the page is complete without JavaScript.
-   1. Section reveal   2. Hero drift   3. Index panel   4. Back to top   5. Copy email
+   1. Section reveal   2. Hero drift   3. Index panel   4. Back to top
+   5. Hero geometry replay   6. Copy email
    ========================================================================== */
 
 (() => {
   'use strict';
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Spanish text from i18n.js when it is active; English otherwise.
+  const t = (key, en) => (window.i18n && window.i18n.t(key)) || en;
 
   /* 1. Section reveal ---------------------------------------------------- */
   const revealItems = document.querySelectorAll('[data-reveal]');
@@ -109,7 +113,51 @@
     });
   }
 
-  /* 5. Copy email -------------------------------------------------------- */
+  /* 5. Hero geometry replay ---------------------------------------------- */
+  // Hovering (or touching) the hexagons replays their opening trace. It never
+  // restarts mid-trace, and fires again only after the pointer has left.
+  const geometry = document.querySelector('.hero__geometry');
+
+  if (geometry && !reduceMotion) {
+    const parts = geometry.querySelectorAll('.geo-line, .geo-nodes');
+    const TRACE_MS = 3400; // longest part: inner hexagon, 600ms delay + 2800ms trace
+    let busy = false;
+    let inside = false;
+    let frame = 0;
+
+    const replay = () => {
+      if (busy) return;
+      busy = true;
+      parts.forEach((el) => { el.style.animation = 'none'; });
+      void geometry.getBoundingClientRect(); // flush, so the animation restarts
+      parts.forEach((el) => { el.style.animation = ''; });
+      setTimeout(() => { busy = false; }, TRACE_MS);
+    };
+
+    // The hexagon sits behind the content, so test the pointer against its shape.
+    const isOver = (x, y) => {
+      const r = geometry.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      return Math.hypot(x - cx, y - cy) < r.width * 0.45;
+    };
+
+    document.addEventListener('pointermove', (event) => {
+      if (event.pointerType !== 'mouse' || frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const now = isOver(event.clientX, event.clientY);
+        if (now && !inside) replay();
+        inside = now;
+      });
+    }, { passive: true });
+
+    document.addEventListener('pointerdown', (event) => {
+      if (event.pointerType !== 'mouse' && isOver(event.clientX, event.clientY)) replay();
+    }, { passive: true });
+  }
+
+  /* 6. Copy email -------------------------------------------------------- */
   // Buttons ship hidden and are only shown where the Clipboard API exists.
   const copyButtons = document.querySelectorAll('[data-copy]');
   const status = document.querySelector('[data-copy-status]');
@@ -124,18 +172,18 @@
       const value = button.dataset.copy;
       try {
         await navigator.clipboard.writeText(value);
-        button.textContent = 'Copied';
+        button.textContent = t('ui.copied', 'Copied');
         button.classList.add('is-copied');
-        if (status) status.textContent = `${value} copied to clipboard.`;
+        if (status) status.textContent = t('ui.copy-status', '{value} copied to clipboard.').replace('{value}', value);
 
         clearTimeout(resetTimer);
         resetTimer = setTimeout(() => {
-          button.textContent = 'Copy';
+          button.textContent = t('ui.copy', 'Copy');
           button.classList.remove('is-copied');
           if (status) status.textContent = '';
         }, 2000);
       } catch {
-        if (status) status.textContent = 'Copy failed. Select the address to copy it manually.';
+        if (status) status.textContent = t('ui.copy-failed', 'Copy failed. Select the address to copy it manually.');
       }
     });
   });

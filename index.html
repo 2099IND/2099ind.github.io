@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-  <title>2099 Industries — Laying the groundwork for what comes next</title>
-  <meta name="description" content="2099 Industries develops and operates businesses, services and digital ventures for the modern marketplace. Our website is currently under development.">
+  <title data-i18n="home.title">2099 Industries — Laying the groundwork for what comes next</title>
+  <meta name="description" content="2099 Industries develops and operates businesses, services and digital ventures for the modern marketplace. Our website is currently under development." data-i18n-attr="content:home.desc">
   <link rel="canonical" href="https://2099ind.com/">
   <meta name="theme-color" content="#080b16">
   <meta name="color-scheme" content="dark">
@@ -28,6 +28,7 @@
 
   <!-- Flags JS as available before first paint, so reveal styles never flash. -->
   <script>document.documentElement.classList.add('js');</script>
+  <script src="i18n.js" defer></script>
   <script src="script.js" defer></script>
 
   <script type="application/ld+json">
@@ -39,25 +40,33 @@
     "email": "sales@2099ind.com",
     "contactPoint": [
       { "@type": "ContactPoint", "contactType": "sales", "email": "sales@2099ind.com" },
-      { "@type": "ContactPoint", "contactType": "business inquiries", "email": "business@2099ind.com" }
+      { "@type": "ContactPoint", "contactType": "business inquiries", "email": "business@2099ind.com" },
+      { "@type": "ContactPoint", "contactType": "customer support", "email": "support@2099ind.com" }
     ]
   }
   </script>
 </head>
 
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main" data-i18n="ui.skip">Skip to content</a>
 
   <!-- ============ Header ============ -->
   <header class="site-header">
     <div class="container site-header__inner">
       <!-- Temporary typographic wordmark. Replace the inner text with the official logo when available. -->
-      <a class="wordmark" href="#top" aria-label="2099 Industries, back to top">
+      <a class="wordmark" href="#top" aria-label="2099 Industries, back to top" data-i18n-attr="aria-label:ui.wordmark-top">
         <span class="wordmark__year">2099</span>
         <span class="wordmark__name">Industries</span>
       </a>
 
-      <nav class="site-nav" aria-label="Primary">
+      <!-- Language switch: shown by i18n.js. Without JavaScript the site stays in English. -->
+      <div class="lang-switch lang-switch--header lang-switch--with-index" role="group" aria-label="Language" data-i18n-attr="aria-label:ui.language" hidden>
+          <button class="lang-switch__btn" type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="true"><span class="lang-switch__long">English</span><span class="lang-switch__short">EN</span></button>
+          <span class="lang-switch__sep" aria-hidden="true">/</span>
+          <button class="lang-switch__btn" type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="false"><span class="lang-switch__long">Español</span><span class="lang-switch__short">ES</span></button>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary" data-i18n-attr="aria-label:ui.primary">
         <!-- INDEX uses the native Popover API: Enter/Space opens, Esc or an outside click closes,
              and focus returns to this button. No JavaScript is needed for open/close. -->
         <button class="index-toggle" type="button" popovertarget="index-panel">
@@ -76,21 +85,21 @@
               <div class="index-item index-item--reserved">
                 <span class="index-item__num" aria-hidden="true">01</span>
                 <span class="index-item__name">Store</span>
-                <span class="index-item__status">In development</span>
+                <span class="index-item__status" data-i18n="ui.in-dev">In development</span>
               </div>
             </li>
             <li>
               <div class="index-item index-item--reserved">
                 <span class="index-item__num" aria-hidden="true">02</span>
                 <span class="index-item__name">Catalog</span>
-                <span class="index-item__status">In development</span>
+                <span class="index-item__status" data-i18n="ui.in-dev">In development</span>
               </div>
             </li>
             <li>
               <div class="index-item index-item--reserved">
                 <span class="index-item__num" aria-hidden="true">03</span>
                 <span class="index-item__name">Offers</span>
-                <span class="index-item__status">In development</span>
+                <span class="index-item__status" data-i18n="ui.in-dev">In development</span>
               </div>
             </li>
             <li>
@@ -112,6 +121,13 @@
               </a>
             </li>
           </ol>
+
+          <!-- Narrow phones only: the header has no room for the switch, so it lives here. -->
+          <div class="lang-switch lang-switch--panel" role="group" aria-label="Language" data-i18n-attr="aria-label:ui.language" hidden>
+          <button class="lang-switch__btn" type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="true"><span class="lang-switch__long">English</span><span class="lang-switch__short">EN</span></button>
+          <span class="lang-switch__sep" aria-hidden="true">/</span>
+          <button class="lang-switch__btn" type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="false"><span class="lang-switch__long">Español</span><span class="lang-switch__short">ES</span></button>
+          </div>
         </div>
       </nav>
     </div>
@@ -153,11 +169,11 @@
         </div>
 
         <div class="hero__footer">
-          <p class="hero__lead intro" style="--delay: 480ms">Laying the groundwork for what comes next.</p>
+          <p class="hero__lead intro" style="--delay: 480ms" data-i18n="home.lead">Laying the groundwork for what comes next.</p>
 
           <p class="status intro" style="--delay: 620ms">
             <span class="status__dot" aria-hidden="true"></span>
-            Website currently under development.
+            <span data-i18n="home.status">Website currently under development.</span>
           </p>
         </div>
 
@@ -172,7 +188,7 @@
         <h2 class="section__title" id="explorations-title">Explorations</h2>
 
         <div class="section__body">
-          <p class="prose">
+          <p class="prose" data-i18n="home.expl">
             Concept visuals of the areas 2099 Industries is exploring. They illustrate direction, not current products or services.
           </p>
 
@@ -183,7 +199,7 @@
                      srcset="2099_p3d_a_desktop-printer_4x3_640.webp 640w, 2099_p3d_a_desktop-printer_4x3_960.webp 960w"
                      sizes="(min-width: 64rem) 300px, (min-width: 40rem) 45vw, 78vw"
                      width="960" height="720" loading="lazy" decoding="async"
-                     alt="Concept visual: an enclosed desktop 3D printer producing a geometric part.">
+                     alt="Concept visual: an enclosed desktop 3D printer producing a geometric part." data-i18n-attr="alt:alt.p3d">
                 <figcaption>Additive manufacturing</figcaption>
               </figure>
             </li>
@@ -193,7 +209,7 @@
                      srcset="2099_lsr_a_fiber-laser_4x3_640.webp 640w, 2099_lsr_a_fiber-laser_4x3_960.webp 960w"
                      sizes="(min-width: 64rem) 300px, (min-width: 40rem) 45vw, 78vw"
                      width="960" height="720" loading="lazy" decoding="async"
-                     alt="Concept visual: a fiber laser marking a steel plate inside an enclosed machine.">
+                     alt="Concept visual: a fiber laser marking a steel plate inside an enclosed machine." data-i18n-attr="alt:alt.lsr">
                 <figcaption>Laser engraving</figcaption>
               </figure>
             </li>
@@ -203,7 +219,7 @@
                      srcset="2099_crd_a_metal-card_4x3_640.webp 640w, 2099_crd_a_metal-card_4x3_960.webp 960w"
                      sizes="(min-width: 64rem) 300px, (min-width: 40rem) 45vw, 78vw"
                      width="960" height="720" loading="lazy" decoding="async"
-                     alt="Concept visual: a black metal card with an engraved hexagonal pattern and an NFC mark.">
+                     alt="Concept visual: a black metal card with an engraved hexagonal pattern and an NFC mark." data-i18n-attr="alt:alt.crd">
                 <figcaption>Metal cards</figcaption>
               </figure>
             </li>
@@ -213,7 +229,7 @@
                      srcset="2099_dsp_a_card-display_4x3_640.webp 640w, 2099_dsp_a_card-display_4x3_960.webp 960w"
                      sizes="(min-width: 64rem) 300px, (min-width: 40rem) 45vw, 78vw"
                      width="960" height="720" loading="lazy" decoding="async"
-                     alt="Concept visual: a metal NFC card beside a small display showing geometric lines.">
+                     alt="Concept visual: a metal NFC card beside a small display showing geometric lines." data-i18n-attr="alt:alt.dsp">
                 <figcaption>Displays &amp; NFC</figcaption>
               </figure>
             </li>
@@ -223,7 +239,7 @@
                      srcset="2099_fut_a_prototype_4x3_640.webp 640w, 2099_fut_a_prototype_4x3_960.webp 960w"
                      sizes="(min-width: 64rem) 300px, (min-width: 40rem) 45vw, 78vw"
                      width="960" height="720" loading="lazy" decoding="async"
-                     alt="Concept visual: a machined device prototype beside its open aluminum enclosure, a caliper and screws.">
+                     alt="Concept visual: a machined device prototype beside its open aluminum enclosure, a caliper and screws." data-i18n-attr="alt:alt.fut">
                 <figcaption>Prototyping</figcaption>
               </figure>
             </li>
@@ -233,7 +249,7 @@
                      srcset="2099_txt_a_black-shirt_4x3_640.webp 640w, 2099_txt_a_black-shirt_4x3_960.webp 960w"
                      sizes="(min-width: 64rem) 300px, (min-width: 40rem) 45vw, 78vw"
                      width="960" height="720" loading="lazy" decoding="async"
-                     alt="Concept visual: a black t-shirt with a small hexagonal mark, laid flat beside a ruler.">
+                     alt="Concept visual: a black t-shirt with a small hexagonal mark, laid flat beside a ruler." data-i18n-attr="alt:alt.txt">
                 <figcaption>Apparel</figcaption>
               </figure>
             </li>
@@ -248,7 +264,7 @@
         <h2 class="section__title" id="direction-title">Direction</h2>
 
         <div class="section__body">
-          <p class="prose">
+          <p class="prose" data-i18n="home.dir">
             The areas that shape where 2099 Industries is heading. They describe our direction, not a list of current offerings, and each may develop into its own line of business.
           </p>
 
@@ -257,22 +273,22 @@
             <li class="area">
               <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="2" r="2"/></svg>
               <h3 class="area__title">Capabilities</h3>
-              <p class="area__text">Services and expertise shaped around clear standards and long-term relationships.</p>
+              <p class="area__text" data-i18n="area.cap">Services and expertise shaped around clear standards and long-term relationships.</p>
             </li>
             <li class="area">
               <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="20.66" cy="7" r="2"/></svg>
               <h3 class="area__title">Goods</h3>
-              <p class="area__text">Physical and digital goods, and the channels that bring them to market.</p>
+              <p class="area__text" data-i18n="area.goods">Physical and digital goods, and the channels that bring them to market.</p>
             </li>
             <li class="area">
               <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="20.66" cy="17" r="2"/></svg>
               <h3 class="area__title">Systems</h3>
-              <p class="area__text">The digital infrastructure and processes that keep operations precise and ready to scale.</p>
+              <p class="area__text" data-i18n="area.sys">The digital infrastructure and processes that keep operations precise and ready to scale.</p>
             </li>
             <li class="area">
               <svg class="area__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/><circle cx="12" cy="22" r="2"/></svg>
               <h3 class="area__title">Ventures</h3>
-              <p class="area__text">Commercial partnerships, B2B relationships and new units of business.</p>
+              <p class="area__text" data-i18n="area.vent">Commercial partnerships, B2B relationships and new units of business.</p>
             </li>
           </ul>
         </div>
@@ -285,10 +301,10 @@
         <h2 class="section__title" id="company-title">Company</h2>
 
         <div class="section__body">
-          <p class="statement">
+          <p class="statement" data-i18n="home.co1">
             2099 Industries develops and operates businesses, services and digital ventures built for the modern marketplace.
           </p>
-          <p class="prose">
+          <p class="prose" data-i18n="home.co2">
             The company is organized around distinct areas of activity, structured to grow, adapt and take on new lines of business over time. This website is the start of our public presence, and it will expand as the company does.
           </p>
         </div>
@@ -301,7 +317,7 @@
         <h2 class="section__title" id="contact-title">Contact</h2>
 
         <div class="section__body">
-          <p class="statement">Reach us directly by email.</p>
+          <p class="statement" data-i18n="home.contact">Reach us directly by email.</p>
 
           <!--
             To add an address (e.g. support@ or orders@), copy one <li> block
@@ -311,21 +327,31 @@
             <li class="contact">
               <div class="contact__meta">
                 <h3 class="contact__label">Sales</h3>
-                <p class="contact__text">Commercial inquiries</p>
+                <p class="contact__text" data-i18n="ct.sales">Quotes and orders for individuals</p>
               </div>
               <div class="contact__actions">
                 <a class="contact__email" href="mailto:sales@2099ind.com">sales@2099ind.com</a>
-                <button class="copy-btn" type="button" data-copy="sales@2099ind.com" aria-label="Copy sales email address" hidden>Copy</button>
+                <button class="copy-btn" type="button" data-copy="sales@2099ind.com" aria-label="Copy sales email address" hidden data-i18n="ui.copy" data-i18n-attr="aria-label:ct.copy-sales">Copy</button>
               </div>
             </li>
             <li class="contact">
               <div class="contact__meta">
                 <h3 class="contact__label">Business</h3>
-                <p class="contact__text">Partnerships and corporate communications</p>
+                <p class="contact__text" data-i18n="ct.business">Companies and organizations only</p>
               </div>
               <div class="contact__actions">
                 <a class="contact__email" href="mailto:business@2099ind.com">business@2099ind.com</a>
-                <button class="copy-btn" type="button" data-copy="business@2099ind.com" aria-label="Copy business email address" hidden>Copy</button>
+                <button class="copy-btn" type="button" data-copy="business@2099ind.com" aria-label="Copy business email address" hidden data-i18n="ui.copy" data-i18n-attr="aria-label:ct.copy-business">Copy</button>
+              </div>
+            </li>
+            <li class="contact">
+              <div class="contact__meta">
+                <h3 class="contact__label">Support</h3>
+                <p class="contact__text" data-i18n="ct.support">General questions and support</p>
+              </div>
+              <div class="contact__actions">
+                <a class="contact__email" href="mailto:support@2099ind.com">support@2099ind.com</a>
+                <button class="copy-btn" type="button" data-copy="support@2099ind.com" aria-label="Copy support email address" hidden data-i18n="ui.copy" data-i18n-attr="aria-label:ct.copy-support">Copy</button>
               </div>
             </li>
           </ul>
@@ -339,7 +365,7 @@
     <!-- Back to top: shown by script.js only after the hero has left the screen.
          Sticky inside <main>, so it never overlaps the footer. -->
     <div class="to-top-rail">
-      <a class="to-top" href="#top" aria-label="Back to top" data-to-top hidden><span aria-hidden="true">↑</span> Top</a>
+      <a class="to-top" href="#top" aria-label="Back to top" data-to-top hidden data-i18n-attr="aria-label:ui.back-top"><span aria-hidden="true">↑</span> Top</a>
     </div>
 
   </main>
@@ -351,15 +377,15 @@
         <span class="wordmark__year">2099</span>
         <span class="wordmark__name">Industries</span>
       </p>
-      <nav aria-label="Information">
+      <nav aria-label="Information" data-i18n-attr="aria-label:ui.footer-nav">
         <ul class="site-footer__links" role="list">
           <li><a href="faq.html">FAQ</a></li>
-          <li><a href="privacy.html">Privacy</a></li>
-          <li><a href="terms.html">Terms</a></li>
-          <li><a href="accessibility.html">Accessibility</a></li>
+          <li><a href="privacy.html" data-i18n="foot.privacy">Privacy</a></li>
+          <li><a href="terms.html" data-i18n="foot.terms">Terms</a></li>
+          <li><a href="accessibility.html" data-i18n="foot.access">Accessibility</a></li>
         </ul>
       </nav>
-      <p class="site-footer__legal">© 2026 2099 Industries. All rights reserved.</p>
+      <p class="site-footer__legal" data-i18n="foot.legal">© 2026 2099 Industries. All rights reserved.</p>
       <p class="site-footer__domain">2099ind.com</p>
     </div>
   </footer>
